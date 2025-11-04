@@ -1,6 +1,8 @@
 name = "review-pr"
 description = "Review a GitHub Pull Request using AI(한국어)"
-prompt_file = "review-pr.md"
+
+[prompt]
+file = "review-pr.md"
 
 [arguments]
 id = { help = "Pull Request number to review", required = true }

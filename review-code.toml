@@ -1,6 +1,8 @@
 name = "review-code"
 description = "Review or debug a local code file"
-prompt_file = "review-code.md"
+
+[prompt]
+file = "review-code.md"
 
 [arguments]
 file = { help = "File path of the code to reveiw.(eg: @src/app.py)", required = true }
