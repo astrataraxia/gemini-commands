@@ -1,0 +1,9 @@
+name = "improve-code"
+description = "코드 리팩터링 및 품질 개선 제안 (대화형 명령어)"
+prompt_file = "improve-code.md"
+
+[arguments]
+code = { help = "리팩터링할 코드 또는 @파일", required = true }
+
+[execution]
+fetch_command = "cat {{code}} 2>/dev/null || echo '{{code}}'"
