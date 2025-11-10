@@ -1,11 +1,43 @@
 name = "review-code"
-description = "Review or debug a local code file"
+description = "코드 리뷰 및 디버깅 (대화형 명령어)"
 
-[prompt]
-file = "review-code.md"
+prompt = """
+# Interactive Code Review (English reasoning, Korean output)
+
+You are a senior software engineer. Review the code below for bugs, logical flaws, and improvement points.
+
+Please include:
+1. **Summary** — Brief explanation of what this code does
+2. **Potential Issues** — Logic, error handling, or security problems
+3. **Improvement Suggestions** — Code structure, performance, readability
+4. **Best Practices** — Convention or maintainability issues
+
+Respond in **Korean**, but reason internally in English.
+
+---
+
+## 📄 Source Code
+{{fetch_command_output}}
+
+---
+
+## 🧾 Output Format
+
+### 📝 요약
+...
+
+### ⚠️ 잠재적 버그 / 논리 문제
+...
+
+### 💡 개선 제안
+...
+
+### 📚 베스트 프랙티스 / 스타일
+...
+"""
 
 [arguments]
-file = { help = "File path of the code to reveiw.(eg: @src/app.py)", required = true }
+file = { help = "리뷰할 코드 파일 경로 (예: @src/app.py)", required = true }
 
 [execution]
-fetch_command = "cat {{file}}"
+fetch_command = "cat {{file}} 2>/dev/null || echo '{{file}}'"

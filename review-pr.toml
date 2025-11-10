@@ -1,13 +1,45 @@
 name = "review-pr"
-description = "Review a GitHub Pull Request using AI(한국어)"
+description = "GitHub Pull Request 코드 리뷰 (한국어)"
 
-[prompt]
-file = "review-pr.md"
+prompt = """
+# Code Review (English reasoning, Korean output)
+
+You are a senior software engineer. Review the PR diff below for code quality, potential issues, and improvements.
+
+Please include the following when writing your review:
+
+1. **Summary** — Briefly explain what changes this PR makes
+2. **Potential Issues** — Bugs, performance, security, or maintainability issues
+3. **Improvement Proposals (Suggestions)** — Code quality, structure, naming, or refactoring improvements
+4. **Tests and Documents (Tests & Docs)** — Test cases or documents that should be supplemented
+
+Respond in **Korean**, but reason internally in English.
+
+---
+
+## 📄 PR Diff
+{{fetch_command_output}}
+
+---
+
+## 🧾 Output Format
+
+## 요약
+...
+
+## 잠재적 문제점
+...
+
+## 개선 제안
+...
+
+## 테스트 및 문서
+...
+"""
 
 [arguments]
-id = { help = "Pull Request number to review", required = true }
+id = { help = "리뷰할 Pull Request 번호", required = true }
 
 [execution]
+# GitHub CLI를 이용해 diff 가져오기
 fetch_command = "gh pr diff {{id}} --color=never"
-
-output_file = "reviews/review-{{id}}.md"
